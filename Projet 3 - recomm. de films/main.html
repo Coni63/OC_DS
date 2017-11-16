@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Nicolas MINE">
+
+        <title>Acceuil</title>
+
+        <link rel='stylesheet' type='text/css' href="static/css/bootstrap.min.css">
+        <link rel='stylesheet' type='text/css' href="static/css/style.css">
+    </head>
+
+    <body>
+        <h2>Entrez l'ID du film que vous avez vu <small>1-5000</small></h2>
+        <div class="input-group">
+            <input type="text" class="form-control" aria-label="Film ID" id="film_id">
+            <div class="input-group-btn">
+                <button id="submit_btn" type="button" class="btn btn-default">Action</button>
+            </div>
+        </div>
+        <hr>
+        <h2>Entrez l'ID du film que vous avez vu <small>1-5000</small></h2>
+        <div class="input-group">
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
+              <li role="separator" class="divider"></li>
+            </ul>
+            <div class="input-group-btn">
+                <button id="submit_btn2" type="button" class="btn btn-default">Action</button>
+            </div>
+        </div>
+    </body>
+    
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script>
+        $("#submit_btn").click(function(){
+            let fid = $("#film_id").val();
+            window.location.href = "/recommend/"+fid;
+        });
+    </script>
+</html>

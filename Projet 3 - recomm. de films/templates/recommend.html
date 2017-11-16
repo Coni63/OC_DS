@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Nicolas MINE">
+
+        <title>Acceuil</title>
+
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body>
+        <h2>Vous avez vu :</h2>
+        <h4><small>Titre : </small>{{ vu[0] }} - {{ vu[1] }}</h4>
+        <h6><small>Durée (min) : </small>{{ vu[2] }}</h6>
+        <h6><small>Type : </small>{{ vu[3] }}</h6>
+        <h6><small>Origine : </small>{{ vu[4] }}</h6>
+        <h6><small>IMDB score : </small>{{ vu[5] }}</h6>
+        <h6><small>Facebook likes : </small>{{ vu[6] }}</h6>
+        <h6><small>Directeur : </small>{{ vu[7] }}</h6>
+        <h6><small>Principaux acteurs : </small>{{ vu[8] }}</h6>
+        
+        <hr>
+        
+        <h2>Vous aimerez peut-être :</h2>
+        {% for movie in a_voir %}
+            <h4><small>Titre : </small>{{ movie[0] }} - {{ movie[1] }}</h4>
+            <h6><small>Durée (min) : </small>{{ movie[2] }}</h6>
+            <h6><small>Type : </small>{{ movie[3] }}</h6>
+            <h6><small>Origine : </small>{{ movie[4] }}</h6>
+            <h6><small>IMDB score : </small>{{ movie[5] }}</h6>
+            <h6><small>Facebook likes : </small>{{ movie[6] }}</h6>
+            <h6><small>Directeur : </small>{{ movie[7] }}</h6>
+            <h6><small>Principaux acteurs : </small>{{ movie[8] }}</h6>
+            <br>
+        {% endfor %}
+        
+        <hr>
+        
+        <a href="/" class="btn btn-info" role="button">Retour</a>
+    </body>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script>
+        $("#submit_btn").click(function(){
+            let fid = $("#film_id").val();
+            window.location.href = "/recommend/"+fid;
+        });
+    </script>
+</html>
