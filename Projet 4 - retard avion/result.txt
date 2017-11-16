@@ -1,0 +1,11 @@
+Week format 
+
+ANN : 10.0277
+Non Opti SGD : 12.236544263511545  # SGDRegressor(max_iter=20)
+Boosting : 16.0058384287 # base_estimator=best_model, n_estimators=5, loss="linear"
+
+
+Month/Date Format
+ANN : 10.0468
+Non Opti SGD : 12.477385331214609
+Boosting : 14.5661906634
