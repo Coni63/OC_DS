@@ -23,10 +23,21 @@ def cleanup(word):
             word = word[0].upper() + word[1:]
     return word
 
+def cleanup2(word):
+    """
+        Certains labels n'ont pas le même format que d'autres pour pnns2.
+        :param word: la catégorie mal écrite
+        :return: la catégorie bien écrite
+    """
+    if not pd.isnull(word):
+        return word.title()
+
 # Chargement des données
+print("opening dataset")
 df = pd.read_csv("dataset/fr.openfoodfacts.org.products.csv", sep='\t', dtype=object)
 
 # suppression des features toujours vide
+print("remove empty features")
 df.dropna(axis=1, how='all', inplace=True)
 
 # suppresion des lignes dont les informations nutritionnelles sont manquantes
@@ -34,12 +45,15 @@ subset = [col for col in df if col.endswith("_100g")]
 df.dropna(subset=subset[:-3], how='all', inplace=True)
 
 # conversion des labels
-df["labels"] = df["labels"].apply(lambda x : custom_split(x))
-df["traces"] = df["traces"].apply(lambda x : custom_split(x))
-df["allergens"] = df["allergens"].apply(lambda x: custom_split(x) )
-df["pnns_groups_1"] = df["pnns_groups_1"].apply(lambda x : cleanup(x))
+print("convert/aggregate features")
+df["labels"] = df["labels"].apply(custom_split)
+df["traces"] = df["traces"].apply(custom_split)
+df["allergens"] = df["allergens"].apply(custom_split)
+df["pnns_groups_1"] = df["pnns_groups_1"].apply(cleanup)
+df["pnns_groups_2"] = df["pnns_groups_2"].apply(cleanup2)
 
 # suppresions des labels "inutiles"
+print("removing features")
 subset = [  "code", "url", "creator", "quantity", "carbon-footprint_100g",
             "packaging", "packaging_tags",
             "brands", "brands_tags",
@@ -76,6 +90,7 @@ for column in df:
         df[column] = df[column].astype("float")
 
 # Nettoyages des outliers
+print("remove outliers")
 df = df[(df["energy_100g"] < 4000) | (df["energy_100g"].isnull())]   # Valeur basée sur le boxplot
 
 # Basé sur les boxplot, on a difficilement plus de 2g/100g de vitamine
@@ -97,11 +112,13 @@ for each in minerals:
 threshold = 5
 for column in df:
     if column.endswith("_100g") and not column.startswith(("energy", "nutrition-score")):
-        max_valid = df[column].mean() + threshold * df[column].std()
+        max_valid = df[column].median() + threshold * df[column].std()
         df = df[(df[column] <= max_valid) | (df[column].isnull())]
+        df = df[(df[column] > 0) | (df[column].isnull())]
 
 
 # Les graisses particulières ne peuvent pas etre suppérieur aux graisses totales
+print("removing fake points")
 df = df[(df["monounsaturated-fat_100g"] < df["fat_100g"])  | (df["monounsaturated-fat_100g"].isnull()) ]
 df = df[(df["polyunsaturated-fat_100g"] < df["fat_100g"])  | (df["polyunsaturated-fat_100g"].isnull()) ]
 
@@ -113,4 +130,5 @@ for col in df :
             df.drop(labels=[col], axis=1,inplace=True)
 
 # Sauvegarde du dataset
+print("saving clean dataset")
 df.to_csv("dataset/cleaned_dataset.csv", sep='\t', index=False)
