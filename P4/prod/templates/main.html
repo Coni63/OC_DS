@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Nicolas MINE">
+
+        <title>Acceuil</title>
+
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body>
+      <h1 style="text-align: center;">Lateness prediction</h1>
+       <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            <h2>Aeroports <small>Départures and Arrivals</small></h2>
+            <div class="input-group">
+                From : 
+                <select class="form-control" id="airport_dep" required="required">
+                   {% for key, airport in airports %}
+                   <option value="{{ key }}">{{ airport }}</option>
+                   {% endfor %}
+                </select>
+                <br/><br/>
+                To :
+                <select class="form-control" id="airport_arr" required="required">
+                   {% for key, airport in airports %}
+                   <option value="{{ key }}">{{ airport }}</option>
+                   {% endfor %}
+                </select>
+            </div>
+            <hr>
+            <h2>Datetime <small>Date and Time</small></h2>
+            <div class="input-group">
+                <input type="date" id="date" required="required">
+                <input type="time" id="time" required="required">
+            </div>
+            <hr>
+            <h2>Company</h2>
+            <div class="input-group">
+                <select class="form-control" id="company" required="required">
+                   {% for key, company in companies %}
+                   <option value="{{ key }}">{{ company }}</option>
+                   {% endfor %}
+                </select>
+            </div>
+            <hr>
+            <div class="input-group-btn">
+                <button id="submit_btn" type="button" class="btn btn-default">Prédict !</button>
+            </div>
+              <h2 id="result"></h2>
+          </div>
+        </div>        
+    </body>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script>
+        $("#submit_btn").click(function(){
+            let departure = $("#airport_dep").val();
+            let arrival = $("#airport_arr").val();
+            let date = $("#date").val();
+            let time = $("#time").val();
+            let company = $("#company").val();
+            let data = {
+                  "departure" : 10165, //departure,
+                  "arrival" : 10874, //arrival,
+                  "date" : "2017-10-31", //date,
+                  "time" : "22:22", //time,
+                  "company" : "F9" //company
+            }
+            console.log(time);
+            var jqxhr = $.post( "/predict/", data)
+              .done(function(data) {
+                //alert( "second success" );
+                  $("#result").html(data);
+              })
+              .fail(function() {
+                alert( "error" );
+              });
+            
+            $.ajax({
+              type: "POST",
+              url: /predict/,
+              data: {
+                  "departure" : departure,
+                  "arrival" : arrival,
+                  "date" : date,
+                  "time" : time,
+                  "company" : company
+              },
+              success: success,
+              dataType: dataType
+            });
+//            window.location.href = "/recommend/"+fid;
+        });
+    </script>
+</html>
