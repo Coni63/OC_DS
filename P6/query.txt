@@ -1,0 +1,4 @@
+SELECT TOP(10000) Title, Tags, Body 
+FROM Posts 
+WHERE PostTypeId = 1
+ORDER BY CreationDate DESC
