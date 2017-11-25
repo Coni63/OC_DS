@@ -32,14 +32,14 @@ def in_grammar(word):
     
 def in_embedded_grammar(word):
     if word[0] != "B":
-        return False
+        return 1
     if word[1] not in ["T", "P"]:
-        return False
+        return 2
     if word[1] != word[-2]:
-        return False
+        return 3
     if not in_grammar(word[2:-2]):
-        return False
-    return True
+        return 4
+    return 0
 
 
 def sequenceToWord(sequence):
