@@ -24,19 +24,42 @@
         
         <hr>
         
-        <h2>Vous aimerez peut-être :</h2>
-        {% for movie in a_voir %}
-            <h4><small>Titre : </small>{{ movie[0] }} - {{ movie[1] }}</h4>
-            <h6><small>Durée (min) : </small>{{ movie[2] }}</h6>
-            <h6><small>Type : </small>{{ movie[3] }}</h6>
-            <h6><small>Origine : </small>{{ movie[4] }}</h6>
-            <h6><small>IMDB score : </small>{{ movie[5] }}</h6>
-            <h6><small>Facebook likes : </small>{{ movie[6] }}</h6>
-            <h6><small>Directeur : </small>{{ movie[7] }}</h6>
-            <h6><small>Principaux acteurs : </small>{{ movie[8] }}</h6>
-            <br>
-        {% endfor %}
+		<div class="row">
+		  <h2>Vous aimerez peut-être :</h2>
+		  <div class="col-md-6">
+			<h4>TSNE :</h4>
+			{% for movie in a_voir %}
+				<h4><small>Titre : </small>{{ movie[0] }} - {{ movie[1] }}</h4>
+				<h6><small>Durée (min) : </small>{{ movie[2] }}</h6>
+				<h6><small>Type : </small>{{ movie[3] }}</h6>
+				<h6><small>Origine : </small>{{ movie[4] }}</h6>
+				<h6><small>IMDB score : </small>{{ movie[5] }}</h6>
+				<h6><small>Facebook likes : </small>{{ movie[6] }}</h6>
+				<h6><small>Directeur : </small>{{ movie[7] }}</h6>
+				<h6><small>Principaux acteurs : </small>{{ movie[8] }}</h6>
+				<br>
+			{% endfor %}
+		  </div>
+		  
+		  
+		  <div class="col-md-6">
+		  <h4>Modèle simple :</h4>
+			{% for movie in a_voir_2 %}
+				<h4><small>Titre : </small>{{ movie[0] }} - {{ movie[1] }}</h4>
+				<h6><small>Durée (min) : </small>{{ movie[2] }}</h6>
+				<h6><small>Type : </small>{{ movie[3] }}</h6>
+				<h6><small>Origine : </small>{{ movie[4] }}</h6>
+				<h6><small>IMDB score : </small>{{ movie[5] }}</h6>
+				<h6><small>Facebook likes : </small>{{ movie[6] }}</h6>
+				<h6><small>Directeur : </small>{{ movie[7] }}</h6>
+				<h6><small>Principaux acteurs : </small>{{ movie[8] }}</h6>
+				<br>
+			{% endfor %}
+		  </div>
+		</div>
+		
         
+      
         <hr>
         
         <a href="/" class="btn btn-info" role="button">Retour</a>

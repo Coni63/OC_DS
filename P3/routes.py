@@ -20,29 +20,34 @@ def df_to_arr(result):
     return a
 
 def get_closest(film_id=1, nb_movies = 5):
-    df = pd.read_csv("prod_dataset.csv")
+    df = pd.read_csv("mysite/prod_dataset.csv")
     selected_movie = film_id  # 1, 2, 6, 32, 222, 1250, 2500
     X_embedded = df[["X", "Y", "Z"]].as_matrix()
     center = X_embedded[selected_movie]
     relative_position = X_embedded - center
     distance = np.sqrt(np.sum(np.square(relative_position), axis=1))
     n_closest = np.argsort(distance)[1:nb_movies+1]
-    #result = df.iloc[n_closest]
+
+    X = np.load('mysite/df_encoded.npz')["X"]
+    center = X[film_id]
+    relative_position = X - center
+    dist = np.sqrt(np.sum(np.square(relative_position), axis=1))
+    distance = np.sqrt(np.sum(np.square(relative_position), axis=1))
+    n_closest_2 = np.argsort(distance)[1:nb_movies+1]
     
     vu = df_to_arr(df.iloc[film_id])
     a_voir = [df_to_arr(df.iloc[x]) for x in n_closest]
-    return vu, a_voir
+    a_voir_2 = [df_to_arr(df.iloc[x]) for x in n_closest_2]
+    return vu, a_voir, a_voir_2
 
 @app.route('/recommend/<int:post_id>')
 def recommend(post_id):
-    vu, a_voir = get_closest(post_id, 5)
-#    print(vu)
-#    print(a_voir)
-    return render_template('recommend.html', vu=vu, a_voir=a_voir)
+    vu, a_voir, a_voir_2 = get_closest(post_id, 5)
+    return render_template('recommend.html', vu=vu, a_voir=a_voir, a_voir_2 = a_voir_2)
 
 @app.route('/')
 def index():
-    df = pd.read_csv("prod_dataset.csv")
+    df = pd.read_csv("mysite/prod_dataset.csv")
     liste_movie = df["movie_title"].values
     liste_movie = [(i, str(x).strip().replace(u'\xa0', u' ')) for i, x in enumerate(liste_movie)]
     liste_movie = sorted(liste_movie, key=itemgetter(1))
