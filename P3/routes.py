@@ -20,7 +20,7 @@ def df_to_arr(result):
     return a
 
 def get_closest(film_id=1, nb_movies = 5):
-    df = pd.read_csv("mysite/prod_dataset.csv")
+    df = pd.read_csv("prod_dataset.csv")          # mysite/ a jouter en ligne
     selected_movie = film_id  # 1, 2, 6, 32, 222, 1250, 2500
     X_embedded = df[["X", "Y", "Z"]].as_matrix()
     center = X_embedded[selected_movie]
@@ -28,7 +28,7 @@ def get_closest(film_id=1, nb_movies = 5):
     distance = np.sqrt(np.sum(np.square(relative_position), axis=1))
     n_closest = np.argsort(distance)[1:nb_movies+1]
 
-    X = np.load('mysite/df_encoded.npz')["X"]
+    X = np.load('df_encoded.npz')["X"]             # mysite/ a jouter en ligne
     center = X[film_id]
     relative_position = X - center
     dist = np.sqrt(np.sum(np.square(relative_position), axis=1))
@@ -47,7 +47,7 @@ def recommend(post_id):
 
 @app.route('/')
 def index():
-    df = pd.read_csv("mysite/prod_dataset.csv")
+    df = pd.read_csv("prod_dataset.csv")     # mysite/ a jouter en ligne
     liste_movie = df["movie_title"].values
     liste_movie = [(i, str(x).strip().replace(u'\xa0', u' ')) for i, x in enumerate(liste_movie)]
     liste_movie = sorted(liste_movie, key=itemgetter(1))
