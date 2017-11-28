@@ -12,6 +12,9 @@ from sklearn.preprocessing import MinMaxScaler
 
 app = Flask(__name__)
 
+def to_week_num(x):
+    return ((((x - datetime.datetime(2016,1,1)).days // 7)% 52) + 1)
+
 def load_obj(name):
     with open(name + '.pkl', 'rb') as f:
         return pickle.load(f)
@@ -21,31 +24,46 @@ def hello():
 	if request.method == 'POST':
 		print(request.values)
 		index_arr = load_obj("index")
-
+		airport_converter = load_obj("airport_converter")
+		print(airport_converter)
+		print(index_arr)
 		a = [0 for _ in range(len(index_arr))]
 		for i, j in request.values.items():
 			if i == "departure":
-				a[3] = j
+				groupe = airport_converter[float(j)]
+				column = "DEST_RANK__" + str(groupe)
+				a[index_arr.index(column)] = 1
 			elif i == "arrival":
-				a[4] = j
+				groupe = airport_converter[float(j)]
+				column = "ORIGIN_RANK__" + str(groupe)
+				a[index_arr.index(column)] = 1
 			elif i == "date":
-				yyyy, mm, dd = j.split("-")
-				a[0] = mm
-				a[1] = dd
-				a[2] = datetime.datetime.strptime(j, "%Y-%m-%d").isoweekday()
+				date_ = datetime.datetime.strptime(j, "%Y-%m-%d")
+				print(date_)
+				weekday = "DAY__" + str(date_.isoweekday())
+				a[index_arr.index(weekday)] = 1
+				weeknum = "WEEK__" + str(to_week_num(date_))
+				a[index_arr.index(weeknum)] = 1
+				print("weekday : {} - numweek {}".format(weekday, weeknum))
 			elif i == "time":
 				hh, mm = j.split(":")
-				a[5] = int(hh)*60+int(mm)
+				time_minute = int(hh)*60+int(mm)
+				quarter = time_minute//15
+				shift = abs(quarter - 15) / (96-15)
+				a[index_arr.index("SHIFT")] = shift  # /81 evite le scale
+				print(j, " : shift", shift)
 			elif i =="company":
 				a[index_arr.index(j)] = 1
+				print("company", j)
 			else:
 				print(i, j)
-		a = [a]
-		X = np.array(a)
+		# a = [a]
+		X = np.array([a]).reshape(1, -1)
 		print(X)
-		scaler = joblib.load("scaler.pkl")
-		X_scaled = scaler.transform(X)
-		print(X_scaled)
+		# scaler = joblib.load("scaler.pkl")
+		# X_scaled = scaler.transform(X[0])
+		# print(X_scaled)
+		X_scaled = X
 		model = joblib.load("model.pkl")
 		lateness = model.predict(X_scaled)[0]
 		if lateness > 0:

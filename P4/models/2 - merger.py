@@ -91,8 +91,8 @@ def generate_dataset(week_format = False):
 
     df2["RANK"] = df2["DEP_DELAY"].apply(Score, args=(quantiles,))
     converter = df2.set_index('ORIGIN_AIRPORT_ID')["RANK"].to_dict()
-    df['ORIGIN_AIRPORT_ID'] = df['ORIGIN_AIRPORT_ID'].apply(lambda x: converter[x])
-    df['DEST_AIRPORT_ID'] = df['DEST_AIRPORT_ID'].apply(lambda x: converter[x])
+    df['ORIGIN_AIRPORT_RANK'] = df['ORIGIN_AIRPORT_ID'].apply(lambda x: converter[x])
+    df['DEST_AIRPORT_RANK'] = df['DEST_AIRPORT_ID'].apply(lambda x: converter[x])
 
     save_obj(converter, "airport_converter")
 

@@ -65,11 +65,11 @@
             let time = $("#time").val();
             let company = $("#company").val();
             let data = {
-                  "departure" : 10165, //departure,
-                  "arrival" : 10874, //arrival,
-                  "date" : "2017-10-31", //date,
-                  "time" : "22:22", //time,
-                  "company" : "F9" //company
+                  "departure" : departure,
+                  "arrival" : arrival,
+                  "date" : date,
+                  "time" : time,
+                  "company" : company
             }
             console.log(time);
             var jqxhr = $.post( "/predict/", data)
