@@ -44,10 +44,12 @@ y_test = loaded["y_test"]
 
 # Sauvegarde du model final
 
-# best_params_single_SGDR = {'loss': 'huber', 'max_iter': 10, 'penalty': None}
-# model = SGDRegressor(**best_params_single_SGDR)
-# model.fit(X_train, y_train)
-# joblib.dump(model, '../prod/model.pkl')
+best_params_single_SGDR = {'l1_ratio': 0.15, 'loss': 'huber', 'max_iter': 10, 'penalty': 'elasticnet'}
+model = SGDRegressor(**best_params_single_SGDR)
+model.fit(X_train, y_train)
+joblib.dump(model, '../prod/model.pkl')
+
+# Test du modèle sauvegardé
 
 model = joblib.load("../prod/model.pkl")
 

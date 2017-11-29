@@ -241,3 +241,58 @@ Week Format True + Sequence OHE aeroport :
        loss='huber', max_iter=10, n_iter=None, penalty=None, power_t=0.25,
        random_state=None, shuffle=True, tol=None, verbose=0,
        warm_start=False), 'loss': 'exponential', 'n_estimators': 20}) : MSE 869.4150, MAE 10.2105 
+
+
+########################################################################
+Week Format + Sequence OHE aeroport rank + clip negative delay
+########################################################################
+
+29/11/17 - 18:49:31 => SGD_Regressor ({'loss': 'huber', 'max_iter': 3, 'penalty': None}) : MSE 832.6544, MAE 7.8011
+29/11/17 - 18:49:37 => SGD_Regressor ({'loss': 'huber', 'max_iter': 3, 'penalty': 'l2'}) : MSE 832.7315, MAE 7.8005
+29/11/17 - 18:49:46 => SGD_Regressor ({'loss': 'huber', 'max_iter': 3, 'penalty': 'l1'}) : MSE 832.8224, MAE 7.8026
+29/11/17 - 18:49:56 => SGD_Regressor ({'loss': 'huber', 'max_iter': 5, 'penalty': None}) : MSE 832.5259, MAE 7.8009
+29/11/17 - 18:50:06 => SGD_Regressor ({'loss': 'huber', 'max_iter': 5, 'penalty': 'l2'}) : MSE 832.5901, MAE 7.8014
+29/11/17 - 18:50:20 => SGD_Regressor ({'loss': 'huber', 'max_iter': 5, 'penalty': 'l1'}) : MSE 832.8292, MAE 7.8016
+29/11/17 - 18:50:39 => SGD_Regressor ({'loss': 'huber', 'max_iter': 10, 'penalty': None}) : MSE 832.3326, MAE 7.8006
+29/11/17 - 18:50:57 => SGD_Regressor ({'loss': 'huber', 'max_iter': 10, 'penalty': 'l2'}) : MSE 832.4867, MAE 7.8004
+29/11/17 - 18:51:23 => SGD_Regressor ({'loss': 'huber', 'max_iter': 10, 'penalty': 'l1'}) : MSE 832.7507, MAE 7.8013
+29/11/17 - 18:51:33 => SGD_Regressor ({'l1_ratio': 0.15, 'loss': 'huber', 'max_iter': 3, 'penalty': 'elasticnet'}) : MSE 832.7308, MAE 7.8010
+29/11/17 - 18:51:47 => SGD_Regressor ({'l1_ratio': 0.15, 'loss': 'huber', 'max_iter': 5, 'penalty': 'elasticnet'}) : MSE 832.6419, MAE 7.8011
+29/11/17 - 18:52:14 => SGD_Regressor ({'l1_ratio': 0.15, 'loss': 'huber', 'max_iter': 10, 'penalty': 'elasticnet'}) : MSE 832.5338, MAE 7.8002
+29/11/17 - 18:52:23 => SGD_Regressor ({'l1_ratio': 0.5, 'loss': 'huber', 'max_iter': 3, 'penalty': 'elasticnet'}) : MSE 832.8129, MAE 7.8009
+29/11/17 - 18:52:38 => SGD_Regressor ({'l1_ratio': 0.5, 'loss': 'huber', 'max_iter': 5, 'penalty': 'elasticnet'}) : MSE 832.7189, MAE 7.8013
+29/11/17 - 18:53:05 => SGD_Regressor ({'l1_ratio': 0.5, 'loss': 'huber', 'max_iter': 10, 'penalty': 'elasticnet'}) : MSE 832.6061, MAE 7.8007
+29/11/17 - 18:53:14 => SGD_Regressor ({'l1_ratio': 0.85, 'loss': 'huber', 'max_iter': 3, 'penalty': 'elasticnet'}) : MSE 832.8257, MAE 7.8019
+29/11/17 - 18:53:28 => SGD_Regressor ({'l1_ratio': 0.85, 'loss': 'huber', 'max_iter': 5, 'penalty': 'elasticnet'}) : MSE 832.8006, MAE 7.8015
+29/11/17 - 18:53:54 => SGD_Regressor ({'l1_ratio': 0.85, 'loss': 'huber', 'max_iter': 10, 'penalty': 'elasticnet'}) : MSE 832.7177, MAE 7.8008
+
+29/11/17 - 18:56:18 => AdaBoost ({'base_estimator': SGDRegressor(alpha=0.0001, average=False, epsilon=0.1, eta0=0.01,
+       fit_intercept=True, l1_ratio=0.15, learning_rate='invscaling',
+       loss='huber', max_iter=10, n_iter=None, penalty='elasticnet',
+       power_t=0.25, random_state=None, shuffle=True, tol=None, verbose=0,
+       warm_start=False), 'loss': 'linear', 'n_estimators': 2}) : MSE 832.4279, MAE 7.8012 
+29/11/17 - 18:59:27 => AdaBoost ({'base_estimator': SGDRegressor(alpha=0.0001, average=False, epsilon=0.1, eta0=0.01,
+       fit_intercept=True, l1_ratio=0.15, learning_rate='invscaling',
+       loss='huber', max_iter=10, n_iter=None, penalty='elasticnet',
+       power_t=0.25, random_state=None, shuffle=True, tol=None, verbose=0,
+       warm_start=False), 'loss': 'linear', 'n_estimators': 5}) : MSE 832.2396, MAE 7.8015 
+29/11/17 - 19:02:34 => AdaBoost ({'base_estimator': SGDRegressor(alpha=0.0001, average=False, epsilon=0.1, eta0=0.01,
+       fit_intercept=True, l1_ratio=0.15, learning_rate='invscaling',
+       loss='huber', max_iter=10, n_iter=None, penalty='elasticnet',
+       power_t=0.25, random_state=None, shuffle=True, tol=None, verbose=0,
+       warm_start=False), 'loss': 'linear', 'n_estimators': 10}) : MSE 832.2332, MAE 7.8015 
+29/11/17 - 19:05:39 => AdaBoost ({'base_estimator': SGDRegressor(alpha=0.0001, average=False, epsilon=0.1, eta0=0.01,
+       fit_intercept=True, l1_ratio=0.15, learning_rate='invscaling',
+       loss='huber', max_iter=10, n_iter=None, penalty='elasticnet',
+       power_t=0.25, random_state=None, shuffle=True, tol=None, verbose=0,
+       warm_start=False), 'loss': 'linear', 'n_estimators': 20}) : MSE 832.2651, MAE 7.8013 
+29/11/17 - 19:06:54 => AdaBoost ({'base_estimator': SGDRegressor(alpha=0.0001, average=False, epsilon=0.1, eta0=0.01,
+       fit_intercept=True, l1_ratio=0.15, learning_rate='invscaling',
+       loss='huber', max_iter=10, n_iter=None, penalty='elasticnet',
+       power_t=0.25, random_state=None, shuffle=True, tol=None, verbose=0,
+       warm_start=False), 'loss': 'square', 'n_estimators': 2}) : MSE 832.4879, MAE 7.8012 
+29/11/17 - 19:09:53 => AdaBoost ({'base_estimator': SGDRegressor(alpha=0.0001, average=False, epsilon=0.1, eta0=0.01,
+       fit_intercept=True, l1_ratio=0.15, learning_rate='invscaling',
+       loss='huber', max_iter=10, n_iter=None, penalty='elasticnet',
+       power_t=0.25, random_state=None, shuffle=True, tol=None, verbose=0,
+       warm_start=False), 'loss': 'square', 'n_estimators': 5}) : MSE 832.5107, MAE 7.8007 

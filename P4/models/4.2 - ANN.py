@@ -1,10 +1,6 @@
 import numpy as np
 import datetime
 
-from keras.models import Sequential
-from keras.layers import Dense, Dropout
-from keras.callbacks import EarlyStopping
-
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 loaded = np.load('data/matrices.npz')
@@ -13,6 +9,10 @@ X_train = loaded["X_train"]
 y_train = loaded["y_train"]
 X_test = loaded["X_test"]
 y_test = loaded["y_test"]
+
+from keras.models import Sequential
+from keras.layers import Dense, Dropout
+from keras.callbacks import EarlyStopping
 
 model = Sequential()
 model.add(Dense(250, input_dim=X_train.shape[1], activation='relu'))
@@ -38,10 +38,3 @@ MAE = mean_absolute_error(y_test, y_pred)
 with open("log_result.txt", "a") as f:
     current_date = datetime.datetime.now().strftime("%d/%m/%y - %H:%M:%S")
     f.write("{} => ANN ({} Epoch) : MSE {:.4f}, MAE {:.4f} \n".format(current_date, 10 , MSE, MAE))
-
-
-# a = 10
-# s = 100
-# pred = model.predict(X_test[s:s+a])
-# for x, y in zip(pred, y_test[s:s+a]):
-#     print(x[0], " => ", y)

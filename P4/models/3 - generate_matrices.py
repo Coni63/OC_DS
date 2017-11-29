@@ -57,7 +57,10 @@ else:
 joblib.dump(scaler, '../prod/scaler.pkl')
 
 # X_scale = scaler.fit_transform(X.values)
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+y_train = y_train.clip(0)
+y_test = y_test.clip(0)
 
 np.savez_compressed('data/matrices', X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test)
 
