@@ -1,0 +1,40 @@
+Linear airport rank
+30/11/17 - 19:17:35 => SGD_Regressor ({'loss': 'huber', 'max_iter': 3, 'penalty': None}) : MSE 575.2881, MAE 11.4737
+30/11/17 - 19:17:35 => SGD_Regressor ({'loss': 'huber', 'max_iter': 3, 'penalty': 'l2'}) : MSE 575.5168, MAE 11.4777
+30/11/17 - 19:17:36 => SGD_Regressor ({'loss': 'huber', 'max_iter': 3, 'penalty': 'l1'}) : MSE 575.7130, MAE 11.4850
+30/11/17 - 19:17:36 => SGD_Regressor ({'loss': 'huber', 'max_iter': 5, 'penalty': None}) : MSE 573.0609, MAE 11.3721
+30/11/17 - 19:17:36 => SGD_Regressor ({'loss': 'huber', 'max_iter': 5, 'penalty': 'l2'}) : MSE 573.5806, MAE 11.3795
+30/11/17 - 19:17:37 => SGD_Regressor ({'loss': 'huber', 'max_iter': 5, 'penalty': 'l1'}) : MSE 573.6896, MAE 11.3876
+30/11/17 - 19:17:38 => SGD_Regressor ({'loss': 'huber', 'max_iter': 10, 'penalty': None}) : MSE 569.7976, MAE 11.2095
+30/11/17 - 19:17:39 => SGD_Regressor ({'loss': 'huber', 'max_iter': 10, 'penalty': 'l2'}) : MSE 570.2353, MAE 11.2235
+30/11/17 - 19:17:40 => SGD_Regressor ({'loss': 'huber', 'max_iter': 10, 'penalty': 'l1'}) : MSE 570.5434, MAE 11.2318
+30/11/17 - 19:17:40 => SGD_Regressor ({'l1_ratio': 0.15, 'loss': 'huber', 'max_iter': 3, 'penalty': 'elasticnet'}) : MSE 575.6333, MAE 11.4789
+30/11/17 - 19:17:41 => SGD_Regressor ({'l1_ratio': 0.15, 'loss': 'huber', 'max_iter': 5, 'penalty': 'elasticnet'}) : MSE 573.5855, MAE 11.3809
+30/11/17 - 19:17:42 => SGD_Regressor ({'l1_ratio': 0.15, 'loss': 'huber', 'max_iter': 10, 'penalty': 'elasticnet'}) : MSE 570.2930, MAE 11.2248
+30/11/17 - 19:17:42 => SGD_Regressor ({'l1_ratio': 0.5, 'loss': 'huber', 'max_iter': 3, 'penalty': 'elasticnet'}) : MSE 575.7903, MAE 11.4813
+30/11/17 - 19:17:43 => SGD_Regressor ({'l1_ratio': 0.5, 'loss': 'huber', 'max_iter': 5, 'penalty': 'elasticnet'}) : MSE 573.6894, MAE 11.3842
+30/11/17 - 19:17:44 => SGD_Regressor ({'l1_ratio': 0.5, 'loss': 'huber', 'max_iter': 10, 'penalty': 'elasticnet'}) : MSE 570.4116, MAE 11.2276
+30/11/17 - 19:17:44 => SGD_Regressor ({'l1_ratio': 0.85, 'loss': 'huber', 'max_iter': 3, 'penalty': 'elasticnet'}) : MSE 575.7644, MAE 11.4843
+30/11/17 - 19:17:45 => SGD_Regressor ({'l1_ratio': 0.85, 'loss': 'huber', 'max_iter': 5, 'penalty': 'elasticnet'}) : MSE 573.6244, MAE 11.3867
+30/11/17 - 19:17:46 => SGD_Regressor ({'l1_ratio': 0.85, 'loss': 'huber', 'max_iter': 10, 'penalty': 'elasticnet'}) : MSE 570.4096, MAE 11.2305
+
+
+OHE - airport rank
+30/11/17 - 19:37:57 => SGD_Regressor ({'loss': 'huber', 'max_iter': 3, 'penalty': None}) : MSE 690.6777, MAE 11.6099
+30/11/17 - 19:37:57 => SGD_Regressor ({'loss': 'huber', 'max_iter': 3, 'penalty': 'l2'}) : MSE 690.8307, MAE 11.6149
+30/11/17 - 19:37:58 => SGD_Regressor ({'loss': 'huber', 'max_iter': 3, 'penalty': 'l1'}) : MSE 691.1699, MAE 11.6230
+30/11/17 - 19:37:58 => SGD_Regressor ({'loss': 'huber', 'max_iter': 5, 'penalty': None}) : MSE 688.0033, MAE 11.5033
+30/11/17 - 19:37:58 => SGD_Regressor ({'loss': 'huber', 'max_iter': 5, 'penalty': 'l2'}) : MSE 688.4466, MAE 11.5116
+30/11/17 - 19:37:59 => SGD_Regressor ({'loss': 'huber', 'max_iter': 5, 'penalty': 'l1'}) : MSE 688.5882, MAE 11.5189
+30/11/17 - 19:38:00 => SGD_Regressor ({'loss': 'huber', 'max_iter': 10, 'penalty': None}) : MSE 684.0207, MAE 11.3682
+30/11/17 - 19:38:01 => SGD_Regressor ({'loss': 'huber', 'max_iter': 10, 'penalty': 'l2'}) : MSE 684.5614, MAE 11.3801
+30/11/17 - 19:38:02 => SGD_Regressor ({'loss': 'huber', 'max_iter': 10, 'penalty': 'l1'}) : MSE 684.7893, MAE 11.3874
+30/11/17 - 19:38:02 => SGD_Regressor ({'l1_ratio': 0.15, 'loss': 'huber', 'max_iter': 3, 'penalty': 'elasticnet'}) : MSE 690.9367, MAE 11.6163
+30/11/17 - 19:38:03 => SGD_Regressor ({'l1_ratio': 0.15, 'loss': 'huber', 'max_iter': 5, 'penalty': 'elasticnet'}) : MSE 688.3597, MAE 11.5127
+30/11/17 - 19:38:04 => SGD_Regressor ({'l1_ratio': 0.15, 'loss': 'huber', 'max_iter': 10, 'penalty': 'elasticnet'}) : MSE 684.6405, MAE 11.3810
+30/11/17 - 19:38:04 => SGD_Regressor ({'l1_ratio': 0.5, 'loss': 'huber', 'max_iter': 3, 'penalty': 'elasticnet'}) : MSE 690.9679, MAE 11.6181
+30/11/17 - 19:38:05 => SGD_Regressor ({'l1_ratio': 0.5, 'loss': 'huber', 'max_iter': 5, 'penalty': 'elasticnet'}) : MSE 688.5345, MAE 11.5152
+30/11/17 - 19:38:06 => SGD_Regressor ({'l1_ratio': 0.5, 'loss': 'huber', 'max_iter': 10, 'penalty': 'elasticnet'}) : MSE 684.7208, MAE 11.3835
+30/11/17 - 19:38:07 => SGD_Regressor ({'l1_ratio': 0.85, 'loss': 'huber', 'max_iter': 3, 'penalty': 'elasticnet'}) : MSE 691.1446, MAE 11.6210
+30/11/17 - 19:38:07 => SGD_Regressor ({'l1_ratio': 0.85, 'loss': 'huber', 'max_iter': 5, 'penalty': 'elasticnet'}) : MSE 688.6520, MAE 11.5179
+30/11/17 - 19:38:08 => SGD_Regressor ({'l1_ratio': 0.85, 'loss': 'huber', 'max_iter': 10, 'penalty': 'elasticnet'}) : MSE 684.7297, MAE 11.3862
