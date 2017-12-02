@@ -25,18 +25,23 @@ def hello():
 		print(request.values)
 		index_arr = load_obj("index")
 		airport_converter = load_obj("airport_converter")
+		freq_airport_converter = load_obj("freq_airport")
+
 		print(airport_converter)
 		print(index_arr)
+
 		a = [0 for _ in range(len(index_arr))]
 		for i, j in request.values.items():
 			if i == "departure":
-				groupe = airport_converter[float(j)]
-				column = "DEST_RANK__" + str(groupe)
+				airport_id = float(j)
+				groupe = airport_converter[airport_id]
+				column = "RANK__" + str(groupe)
 				a[index_arr.index(column)] = 1
 			elif i == "arrival":
-				groupe = airport_converter[float(j)]
-				column = "ORIGIN_RANK__" + str(groupe)
-				a[index_arr.index(column)] = 1
+				pass
+				# groupe = airport_converter[float(j)]
+				# column = "ORIGIN_RANK__" + str(groupe)
+				# a[index_arr.index(column)] = 1
 			elif i == "date":
 				date_ = datetime.datetime.strptime(j, "%Y-%m-%d")
 				print(date_)
@@ -46,30 +51,32 @@ def hello():
 				a[index_arr.index(weeknum)] = 1
 				print("weekday : {} - numweek {}".format(weekday, weeknum))
 			elif i == "time":
-				hh, mm = j.split(":")
-				time_minute = int(hh)*60+int(mm)
-				quarter = time_minute//15
-				shift = abs(quarter - 15) / (96-15)
-				a[index_arr.index("SHIFT")] = shift  # /81 evite le scale
-				print(j, " : shift", shift)
+				hh, mm = [int(x) for x in j.split(":")]
+				# time_minute = hh*60+mm
+				# quarter = time_minute//15
+				# shift = abs(quarter - 15) / (96-15)
+				# a[index_arr.index("SHIFT")] = shift  # /81 evite le scale
+				# print(j, " : shift", shift)
+				a[index_arr.index("FL_HOUR")] = hh
 			elif i =="company":
 				a[index_arr.index(j)] = 1
 				print("company", j)
 			else:
 				print(i, j)
-		# a = [a]
+
+		a[index_arr.index("NUM_FLIGHT")] = freq_airport_converter[airport_id][hh]
+
 		X = np.array([a]).reshape(1, -1)
 		print(X)
-		# scaler = joblib.load("scaler.pkl")
-		# X_scaled = scaler.transform(X[0])
-		# print(X_scaled)
-		X_scaled = X
+		scaler = joblib.load("scaler.pkl")
+		X_scaled = scaler.transform(X)
+		print(X_scaled)
 		model = joblib.load("model.pkl")
 		lateness = model.predict(X_scaled)[0]
 		if lateness > 0:
-			result = "<SMALL>Late :</SMALL>"
+			result = "<SMALL>Retard :</SMALL>"
 		else:
-			result = "<SMALL>Early :</SMALL>"
+			result = "<SMALL>En avance :</SMALL>"
 		min, sec = int(lateness), int((lateness%1)*60)
 		return_str = result + "{:02d}min and {:02d}s".format(min, sec)
 		print(return_str)

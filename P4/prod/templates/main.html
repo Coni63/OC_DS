@@ -12,33 +12,33 @@
     </head>
 
     <body>
-      <h1 style="text-align: center;">Lateness prediction</h1>
+      <h1 style="text-align: center;">Prédiction des retards</h1>
        <div class="row">
           <div class="col-md-4 col-md-offset-4">
-            <h2>Aeroports <small>Départures and Arrivals</small></h2>
+            <h2>Aéroports <small>Départ</small></h2>
             <div class="input-group">
-                From : 
+                <!--From : -->
                 <select class="form-control" id="airport_dep" required="required">
                    {% for key, airport in airports %}
                    <option value="{{ key }}">{{ airport }}</option>
                    {% endfor %}
                 </select>
-                <br/><br/>
-                To :
-                <select class="form-control" id="airport_arr" required="required">
-                   {% for key, airport in airports %}
-                   <option value="{{ key }}">{{ airport }}</option>
-                   {% endfor %}
-                </select>
+                <!--<br/><br/>-->
+                <!--To :-->
+                <!--<select class="form-control" id="airport_arr" required="required">-->
+                   <!--{% for key, airport in airports %}-->
+                   <!--<option value="{{ key }}">{{ airport }}</option>-->
+                   <!--{% endfor %}-->
+                <!--</select>-->
             </div>
             <hr>
-            <h2>Datetime <small>Date and Time</small></h2>
+            <h2>Date du vol<small>Date et Heure</small></h2>
             <div class="input-group">
                 <input type="date" id="date" required="required">
                 <input type="time" id="time" required="required">
             </div>
             <hr>
-            <h2>Company</h2>
+            <h2>Compagnie</h2>
             <div class="input-group">
                 <select class="form-control" id="company" required="required">
                    {% for key, company in companies %}
