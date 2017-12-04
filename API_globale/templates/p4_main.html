@@ -75,14 +75,22 @@
                   "time" : time,
                   "company" : company
             }
-            console.log(time);
+			if (!date){
+				alert("Veuillez rentrer une date valide");
+				return 0;
+			}
+			
+			if (!time){
+				alert("Veuillez rentrer une heure de vol valide");
+				return 0;
+			}
             var jqxhr = $.post( "/p4/predict/", data)
               .done(function(data) {
                 //alert( "second success" );
                   $("#result").html(data);
               })
               .fail(function() {
-                alert( "error" );
+                alert( "Une erreur coté serveur est apparue" );
               });
         });
     </script>
