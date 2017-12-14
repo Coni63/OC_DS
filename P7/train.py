@@ -21,8 +21,8 @@ epochs = 100
 
 model = applications.VGG19(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, 3))
 
-# for layer in model.layers[:5]:   # a tester
-#     layer.trainable = False
+for layer in model.layers:
+    layer.trainable = False
 
 x = model.output
 x = Flatten()(x)
@@ -33,10 +33,10 @@ predictions = Dense(120, activation="softmax")(x)
 
 model_final = Model(input = model.input, output = predictions)
 
-model_final.compile(loss = "categorical_crossentropy", optimizer = optimizers.SGD(lr=0.0001, momentum=0.9), metrics=["accuracy"])
+model_final.compile(loss = "categorical_crossentropy", optimizer = optimizers.SGD(lr=0.01, momentum=0.9), metrics=["accuracy"])
 
-if os.path.exists("vgg19.16.h5"):
-    model_final.load_weights('vgg19.16.h5')
+if os.path.exists("vgg19.52.h5"):
+    model_final.load_weights('vgg19.52.h5')
     print("Weight Loaded...")
     # model_final = load_model("vgg19_1.h5")
 else:
