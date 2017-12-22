@@ -2,3 +2,22 @@ SELECT TOP(10000) Title, Tags, Body
 FROM Posts 
 WHERE PostTypeId = 1
 ORDER BY CreationDate DESC
+
+
+SELECT TOP(200) TagName, Count
+FROM Tags
+WHERE Count > 50000
+
+SELECT TOP(200) TagName, Count
+FROM Tags
+ORDER BY Count DESC
+
+SELECT TOP(5000) Posts.Id, Posts.Title, Posts.Tags, Posts.Body
+from Posts
+  join PostTags on PostTags.PostId = Posts.Id
+  join Tags on Tags.Id = PostTags.TagId
+WHERE Posts.PostTypeId = 1 
+AND PostTags.TagId IN (SELECT Tags.id FROM Tags WHERE Tags.Count > 50000)
+ORDER BY Posts.CreationDate DESC
+
+Distinct a ajouter
