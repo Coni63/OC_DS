@@ -1,6 +1,7 @@
 SELECT TOP(10000) Title, Tags, Body 
 FROM Posts 
 WHERE PostTypeId = 1
+AND Score > 3
 ORDER BY CreationDate DESC
 
 
@@ -21,3 +22,16 @@ AND PostTags.TagId IN (SELECT Tags.id FROM Tags WHERE Tags.Count > 50000)
 ORDER BY Posts.CreationDate DESC
 
 Distinct a ajouter
+
+SELECT Title, Tags, Body, CreationDate, Score
+FROM Posts 
+WHERE PostTypeId = 1
+AND Score > 3
+ORDER BY CreationDate DESC
+OFFSET 0 ROWS FETCH NEXT 10000 ROWS ONLY
+
+SELECT Title, Tags, Body, CreationDate, Score
+FROM Posts 
+WHERE PostTypeId = 1
+AND Score > 3
+ORDER BY RAND()
