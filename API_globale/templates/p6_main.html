@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Nicolas MINE">
+
+        <title>Acceuil</title>
+
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body>
+      <h1 style="text-align: center;">Recommandation de Tags</h1>
+       <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            <div class="form-group">
+                <label for="title">Titre</label>
+                <input type="text" class="form-control" placeholder="Titre" id="title"></br>
+                <label for="content">Titre</label>
+                <textarea class="form-control" rows="8", id="content"></textarea>
+            </div>
+            <div class="text-center">
+                <button id="submit_btn" type="button" class="btn btn-default">Prédire des tags !</button>&nbsp;Attention, le temps de calcul peut etre long</br></br>
+                <div class="input-group-btn">
+                    <button id="template1" type="button" class="btn btn-primary">Template Test 1</button>
+                    <button id="template2" type="button" class="btn btn-primary">Template Test 2</button>
+                    <button id="template3" type="button" class="btn btn-primary">Template Test 3</button>
+                    <button id="template4" type="button" class="btn btn-primary">Template Test 4</button>
+                    <button type="button" class="btn btn-info" data-toggle="popover" title="Info" data-content="Le code ainsi que les images ont été retirés. Ils peuvent être ajoutés et seront processés coté serveur" id="popover"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></button>
+                </div>
+            </div>
+            <hr>
+              <h4>Resultats Méthode non supervisée : </h4><span id="result_unsupevised"></span>
+              <h4>Resultats Méthode non supervisée normalisée : </h4><span id="result_unsupevised_norm"></span>
+              <h4>Resultats Méthode supervisée : </h4><span id="result_supevised"></span>
+			<hr>
+			<div class="text-center">
+				<a href="/" class="btn btn-primary btn-lg" role="button">Retour au Menu</a>
+			</div>
+          </div>
+        </div>
+    </body>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script>
+        $("#submit_btn").click(function(){
+            let title = $("#title").val();
+            let content = $("#content").val();
+
+            if (!title || !content){
+                alert("Veuillez rentrer un titre et un contenu");
+            } else {
+                var data = {"corpus" : title + " " + content};
+            }
+			console.log(data["corpus"]);
+
+
+            var jqxhr = $.post( "/p6/predict/", data)
+              .done(function(data){
+                  let parsed_result = data.split("!");
+                  $("#result_unsupevised").html(parsed_result[0]);
+                  $("#result_unsupevised_norm").html(parsed_result[1]);
+                  $("#result_supevised").html(parsed_result[2]);
+              })
+              .fail(function() {
+                alert( "Une erreur coté serveur est apparue" );
+              });
+        });
+
+        $('#popover').popover();
+
+        $("#template1").click(function(){
+            let title = "How do you get the footer to stay at the bottom of a Web page?";
+            let body = "I have a simple 2-column layout with a footer that clears both the right and left div in my markup. \
+My problem is that I can't get the footer to stay at the bottom of the page in all browsers. \
+It works if the content pushes the footer down, but that's not always the case.\n\nUpdate:\n\n\
+It's not working properly in Firefox. I'm seeing a strip of background color below the footer \
+when there's not enough content on the page to push the footer all the way down to the bottom \
+of the browser window. Unfortunately, this is the default state of the page.";
+            $("#title").val(title);
+            $("#content").val(body);
+        });
+
+        $("#template2").click(function(){
+            let title = "Dfs algorithm that decides if a directed graph has a unique topological sort";
+            let body = "i'm trying to struct an algorithm that uses DFS for the purpose of deciding whether a given \
+directed graph has unique topological sort or not. My approach to the problem is that only a specific graph has a \
+unique topological sort. And that graph is a chain like graph, in which all of the vertices are connected to each \
+other in one line. My dilemma is how to do an efficient dfs algorithm, and what exactly should i check.";
+            $("#title").val(title);
+            $("#content").val(body);
+        });
+
+        $("#template3").click(function(){
+            let title = "Why does this neural network learn nothing?";
+            let body = "I am learning TensorFlow and was implementing a simple neural network as explained in MNIST for \
+Beginners in TensorFlow docs. Here is the link. The accuracy was about 80-90 %, as expected.\n\n Then following the \
+same article was MNIST for Experts using ConvNet. Instead of implementing that I decided to improve the beginner part.\
+I know about Neural Nets and how they learn and the fact that deep networks can perform better than shallow networks. \
+I modified the original program in MNIST for Beginner to implement a Neural network with 2 hidden layers each of 16 \
+neurons.\n\n It looks something like this : \n\n Code :\n\n My Question \n\n What is wrong with the above program that \
+it does not generalize at all? How can I improve it more without using convolutional neural networks?";
+
+            $("#title").val(title);
+            $("#content").val(body);
+        });
+
+        $("#template4").click(function(){
+            let title = "how to use radio group in shared preference android?";
+            let body = "i'm doing my mobile project, i'm using shared preference to save user's clicks for later usage. \
+one of them is radio buttons, after some research i found that to get the specific radio button that was clicked, i \
+have to use radio Group. when i tried that, it only enables me to click on one radio button the other one when i click \
+o it, the app is forced to stop.i have created a class called Preference.java to set and get all of user clicks, \
+including radio buttons.\n\n MainActivity.java \n\n activity_main.xml \n\n Preference.java";
+            $("#title").val(title);
+            $("#content").val(body);
+        });
+    </script>
+</html>
