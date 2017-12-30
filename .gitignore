@@ -1,0 +1,11 @@
+*.csv
+*.zip
+*.xls
+*.xlsx
+*.npz
+*.h5
+*.bat
+
+!API_globale/*
+!API_globale/p3/*
+!API_globale/p4/*
