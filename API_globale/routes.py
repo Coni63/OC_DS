@@ -174,10 +174,31 @@ def tokenize(text):
 def get_tiidf_matrice(text):
     vectorizer = joblib.load("mysite/p6/TfidfVectorizer")
     return vectorizer.transform([text])
+	
+#def get_classes(X, qte=5):
+#    model = joblib.load("mysite/p6/SGDR")
+#    y_pred = model.predict_proba(X)
+#    classes = np.argsort(y_pred, axis=1)[:, -qte:].tolist()[0][::-1]  # pour les avoir dans l'ordre de proba
+#    return classes
+
+from sklearn.linear_model import SGDClassifier
+
+class Classifier(SGDClassifier):
+    def __init__(self, penalty=None, alpha=0.0001):
+        super(Classifier, self).__init__(n_jobs=-1, 
+                                         loss="log",
+                                         penalty=penalty, 
+                                         alpha=alpha, 
+                                         max_iter=20,
+                                         tol=1e-3)
+    
+    def predict_proba(self, X):
+        return super(Classifier, self).predict_proba(X)
 
 def get_classes(X, qte=5):
-    model = joblib.load("mysite/p6/SGDR")
+    model = joblib.load("mysite/p6/MOC")
     y_pred = model.predict_proba(X)
+    y_pred = np.delete(y_pred, 0, axis=2)[:, :, 0].T
     classes = np.argsort(y_pred, axis=1)[:, -qte:].tolist()[0][::-1]  # pour les avoir dans l'ordre de proba
     # print(classes)
     return classes
