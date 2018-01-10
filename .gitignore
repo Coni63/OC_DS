@@ -5,6 +5,7 @@
 *.npz
 *.h5
 *.bat
+*.npy
 
 !API_globale/*
 !API_globale/p3/*
