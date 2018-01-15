@@ -59,7 +59,9 @@ def get_test_matrices(network, model, path, resize=False):
     return X, y
 
 
-label = pd.read_csv("label_augmented.csv", index_col=0)
+label = pd.read_csv("../labels.csv")
+train_path =  "../train/resized/*.jpg"
+test_path = "../test/resized/*.jpg"
 
 #### Model 1
 
@@ -71,18 +73,15 @@ label = pd.read_csv("label_augmented.csv", index_col=0)
 #     pooling='avg'
 # )
 #
-# for layer in model.layers:
-#     layer.trainable = False
-#
 # print("Generating Train Matrice...")
-# X, y = get_train_matrices(app, model, 'train/resized/*.jpg')
+# X, y = get_train_matrices(app, model, train_path)
 # print("Saving Train Matrice...")
-# np.savez_compressed('preprocessed_train_InceptionResNetV2.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_train_InceptionResNetV2.npz', X=X, y=y)
 #
 # print("Generating Test Matrice...")
-# X, y = get_test_matrices(app, model, 'test/resized/*.jpg')
+# X, y = get_test_matrices(app, model, test_path)
 # print("Saving Test Matrice...")
-# np.savez_compressed('preprocessed_test_InceptionResNetV2.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_test_InceptionResNetV2.npz', X=X, y=y)
 
 #### Model 2
 
@@ -94,18 +93,15 @@ label = pd.read_csv("label_augmented.csv", index_col=0)
 #     pooling="avg",
 # )
 #
-# for layer in model.layers:
-#     layer.trainable = False
-#
 # print("Generating Train Matrice...")
-# X, y = get_train_matrices(app, model, 'train/resized/*.jpg')
+# X, y = get_train_matrices(app, model, train_path)
 # print("Saving Train Matrice...")
-# np.savez_compressed('preprocessed_train_InceptionV3.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_train_InceptionV3.npz', X=X, y=y)
 #
 # print("Generating Test Matrice...")
-# X, y = get_test_matrices(app, model, 'test/resized/*.jpg')
+# X, y = get_test_matrices(app, model, test_path)
 # print("Saving Test Matrice...")
-# np.savez_compressed('preprocessed_test_InceptionV3.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_test_InceptionV3.npz', X=X, y=y)
 
 #### Model 3
 
@@ -117,18 +113,15 @@ label = pd.read_csv("label_augmented.csv", index_col=0)
 #     pooling="avg",
 # )
 #
-# for layer in model.layers:
-#     layer.trainable = False
-#
 # print("Generating Train Matrice...")
-# X, y = get_train_matrices(app, model, 'train/resized/*.jpg', True)
+# X, y = get_train_matrices(app, model, train_path, True)
 # print("Saving Train Matrice...")
-# np.savez_compressed('preprocessed_train_VGG16.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_train_VGG16.npz', X=X, y=y)
 #
 # print("Generating Test Matrice...")
-# X, y = get_test_matrices(app, model, 'test/resized/*.jpg', True)
+# X, y = get_test_matrices(app, model, test_path, True)
 # print("Saving Test Matrice...")
-# np.savez_compressed('preprocessed_test_VGG16.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_test_VGG16.npz', X=X, y=y)
 
 #### Model 4
 
@@ -140,18 +133,15 @@ label = pd.read_csv("label_augmented.csv", index_col=0)
 #     pooling="avg",
 # )
 #
-# for layer in model.layers:
-#     layer.trainable = False
-#
 # print("Generating Train Matrice...")
-# X, y = get_train_matrices(app, model, 'train/resized/*.jpg')
+# X, y = get_train_matrices(app, model, train_path)
 # print("Saving Train Matrice...")
-# np.savez_compressed('preprocessed_train_Xception.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_train_Xception.npz', X=X, y=y)
 #
 # print("Generating Test Matrice...")
-# X, y = get_test_matrices(app, model, 'test/resized/*.jpg')
+# X, y = get_test_matrices(app, model, test_path)
 # print("Saving Test Matrice...")
-# np.savez_compressed('preprocessed_test_Xception.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_test_Xception.npz', X=X, y=y)
 
 #### Model 5
 
@@ -163,18 +153,15 @@ label = pd.read_csv("label_augmented.csv", index_col=0)
 #     pooling="avg",
 # )
 #
-# for layer in model.layers:
-#     layer.trainable = False
-#
 # print("Generating Train Matrice...")
-# X, y = get_train_matrices(app, model, 'train/resized/*.jpg', True)
+# X, y = get_train_matrices(app, model, train_path, True)
 # print("Saving Train Matrice...")
-# np.savez_compressed('preprocessed_train_ResNet50.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_train_ResNet50.npz', X=X, y=y)
 #
 # print("Generating Test Matrice...")
-# X, y = get_test_matrices(app, model, 'test/resized/*.jpg', True)
+# X, y = get_test_matrices(app, model, test_path, True)
 # print("Saving Test Matrice...")
-# np.savez_compressed('preprocessed_test_ResNet50.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_test_ResNet50.npz', X=X, y=y)
 
 #### Model 6
 
@@ -187,15 +174,12 @@ label = pd.read_csv("label_augmented.csv", index_col=0)
 #     pooling="avg",
 # )
 #
-# for layer in model.layers:
-#     layer.trainable = False
-#
 # print("Generating Train Matrice...")
-# X, y = get_train_matrices(app, model, 'train/resized/*.jpg', True)
+# X, y = get_train_matrices(app, model, train_path, True)
 # print("Saving Train Matrice...")
-# np.savez_compressed('preprocessed_train_MobileNet.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_train_MobileNet.npz', X=X, y=y)
 #
 # print("Generating Test Matrice...")
-# X, y = get_test_matrices(app, model, 'test/resized/*.jpg', True)
+# X, y = get_test_matrices(app, model, test_path, True)
 # print("Saving Test Matrice...")
-# np.savez_compressed('preprocessed_test_MobileNet.npz', X=X, y=y)
+# np.savez_compressed('datas/preprocessed_test_MobileNet.npz', X=X, y=y)
