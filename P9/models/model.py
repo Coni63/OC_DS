@@ -12,7 +12,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import Callback
-from keras.optimizers import Adam
+from keras.optimizers import Adam, SGD
 from keras import regularizers
 
 import tensorflow as tf
@@ -66,68 +66,68 @@ def save_obj(obj, name):
 def create_model(IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS):
     K_REG = None #regularizers.l1(0.1)
     BIAS_INIT = "zeros" # "he_normal"
-    KERNEL_INIT = "glorot_uniform" # "he_normal"
-
+    KERNEL_INIT = "he_normal" # "glorot_uniform"
+    ACTIVATION = "relu"
     inputs = Input((IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS))
     # s = Lambda(lambda x: x / 255) (inputs)
 
-    c1 = Conv2D(8, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (inputs)
-    c1 = Conv2D(8, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c1)
+    c1 = Conv2D(8, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (inputs)
+    c1 = Conv2D(8, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c1)
     p1 = MaxPooling2D((2, 2)) (c1)
 
-    c2 = Conv2D(16, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p1)
-    c2 = Conv2D(16, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c2)
+    c2 = Conv2D(16, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p1)
+    c2 = Conv2D(16, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c2)
     p2 = MaxPooling2D((2, 2)) (c2)
 
-    c3 = Conv2D(32, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p2)
-    c3 = Conv2D(32, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c3)
+    c3 = Conv2D(32, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p2)
+    c3 = Conv2D(32, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c3)
     p3 = MaxPooling2D((2, 2)) (c3)
 
-    c4 = Conv2D(64, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p3)
-    c4 = Conv2D(64, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c4)
+    c4 = Conv2D(64, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p3)
+    c4 = Conv2D(64, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c4)
     p4 = MaxPooling2D(pool_size=(2, 2)) (c4)
 
-    c5 = Conv2D(128, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p4)
-    c5 = Conv2D(128, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c5)
+    c5 = Conv2D(128, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p4)
+    c5 = Conv2D(128, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c5)
 
-    u6 = Conv2DTranspose(64, (2, 2), strides=(2, 2), padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c5)
+    u6 = Conv2DTranspose(64, (2, 2), strides=(2, 2), padding='same') (c5)
     u6 = concatenate([u6, c4])
-    c6 = Conv2D(64, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u6)
-    c6 = Conv2D(64, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c6)
+    c6 = Conv2D(64, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u6)
+    c6 = Conv2D(64, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c6)
 
-    u7 = Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c6)
+    u7 = Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same') (c6)
     u7 = concatenate([u7, c3])
-    c7 = Conv2D(32, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u7)
-    c7 = Conv2D(32, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c7)
+    c7 = Conv2D(32, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u7)
+    c7 = Conv2D(32, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c7)
 
-    u8 = Conv2DTranspose(16, (2, 2), strides=(2, 2), padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c7)
+    u8 = Conv2DTranspose(16, (2, 2), strides=(2, 2), padding='same') (c7)
     u8 = concatenate([u8, c2])
-    c8 = Conv2D(16, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u8)
-    c8 = Conv2D(16, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c8)
+    c8 = Conv2D(16, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u8)
+    c8 = Conv2D(16, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c8)
 
-    u9 = Conv2DTranspose(8, (2, 2), strides=(2, 2), padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c8)
+    u9 = Conv2DTranspose(8, (2, 2), strides=(2, 2), padding='same') (c8)
     u9 = concatenate([u9, c1], axis=3)
-    c9 = Conv2D(8, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u9)
-    c9 = Conv2D(8, (3, 3), activation='relu', padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c9)
+    c9 = Conv2D(8, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u9)
+    c9 = Conv2D(8, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c9)
 
     outputs = Conv2D(1, (1, 1), activation='sigmoid') (c9)
 
     model = Model(inputs=[inputs], outputs=[outputs])
 
-    model.compile(optimizer = "adam", loss = 'binary_crossentropy', metrics = ['binary_crossentropy'])
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics = ['binary_crossentropy'])
 
     return model
 
 
 def create_generator(X_train, X_test, y_train, y_test, BATCH_SIZE, seed = 42):
     data_gen_args_train = {
-        #"rotation_range" : 90.,
-        #"width_shift_range" : 0.1,
-        #"height_shift_range" : 0.1,
-        #"zoom_range" : 0.2,
-        #"shear_range" : 0.2,
-        #"fill_mode" : "nearest",
-        #"cval" : 0,
+        # "rotation_range" : 90.,
+        # "width_shift_range" : 0.1,
+        # "height_shift_range" : 0.1,
+        # "zoom_range" : 0.2,
+        # "shear_range" : 0.2,
+        # "fill_mode" : "nearest",
+        # "cval" : 0,
         "horizontal_flip" : True,
         "vertical_flip" : True,
         "data_format" : "channels_last",
