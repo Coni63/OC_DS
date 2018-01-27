@@ -100,15 +100,15 @@ def create_model(IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS):
 
     c12 = Conv2D(8, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (inputs2)
     c12 = Conv2D(8, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c12)
-    p12 = MaxPooling2D((2, 2)) (c1)
+    p12 = MaxPooling2D((2, 2)) (c12)
 
     c22 = Conv2D(16, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p12)
     c22 = Conv2D(16, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c22)
-    p22 = MaxPooling2D((2, 2)) (c2)
+    p22 = MaxPooling2D((2, 2)) (c22)
 
     c32 = Conv2D(32, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p22)
     c32 = Conv2D(32, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c32)
-    p32 = MaxPooling2D((2, 2)) (c3)
+    p32 = MaxPooling2D((2, 2)) (c32)
 
     c42 = Conv2D(64, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p32)
     c42 = Conv2D(64, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c42)
@@ -120,15 +120,15 @@ def create_model(IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS):
 
     c13 = Conv2D(8, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (inputs3)
     c13 = Conv2D(8, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c13)
-    p13 = MaxPooling2D((2, 2)) (c1)
+    p13 = MaxPooling2D((2, 2)) (c13)
 
     c23 = Conv2D(16, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p13)
     c23 = Conv2D(16, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c23)
-    p23 = MaxPooling2D((2, 2)) (c2)
+    p23 = MaxPooling2D((2, 2)) (c23)
 
     c33 = Conv2D(32, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p23)
     c33 = Conv2D(32, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c33)
-    p33 = MaxPooling2D((2, 2)) (c3)
+    p33 = MaxPooling2D((2, 2)) (c33)
 
     c43 = Conv2D(64, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p33)
     c43 = Conv2D(64, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c43)
@@ -138,26 +138,26 @@ def create_model(IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS):
 
     p5 = concatenate([p4, p42, p43])
 
-    c5 = Conv2D(128, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p4)
+    c5 = Conv2D(128, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (p5)
     c5 = Conv2D(128, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c5)
 
     u6 = Conv2DTranspose(64, (2, 2), strides=(2, 2), padding='same') (c5)
-    u6 = concatenate([u6, c4])
+    u6 = concatenate([u6, c4, c42, c43])
     c6 = Conv2D(64, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u6)
     c6 = Conv2D(64, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c6)
 
     u7 = Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same') (c6)
-    u7 = concatenate([u7, c3])
+    u7 = concatenate([u7, c3, c32, c33])
     c7 = Conv2D(32, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u7)
     c7 = Conv2D(32, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c7)
 
     u8 = Conv2DTranspose(16, (2, 2), strides=(2, 2), padding='same') (c7)
-    u8 = concatenate([u8, c2])
+    u8 = concatenate([u8, c2, c22, c23])
     c8 = Conv2D(16, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u8)
     c8 = Conv2D(16, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c8)
 
     u9 = Conv2DTranspose(8, (2, 2), strides=(2, 2), padding='same') (c8)
-    u9 = concatenate([u9, c1], axis=3)
+    u9 = concatenate([u9, c1, c12, c13], axis=3)
     c9 = Conv2D(8, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (u9)
     c9 = Conv2D(8, (3, 3), activation=ACTIVATION, padding='same', kernel_initializer=KERNEL_INIT, bias_initializer = BIAS_INIT, kernel_regularizer=K_REG) (c9)
 
