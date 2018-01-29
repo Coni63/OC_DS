@@ -55,12 +55,12 @@ class prediction_history(Callback):
 
     def on_train_end(self, logs={}):
         result = {"val_loss": self.val_loss, "loss": self.loss}
-        save_obj(result, "datas/results1D")
+        save_obj(result, "datas/results_unet_extended")
         for img_id in self.img_id:
             images = []
             for i in range(1, self.epoch):
                 images.append(imageio.imread("img/training/{}/{}/Epoch{:03d}.png".format(self.folder, img_id, i)))
-            output_file = 'img/training1D-{}.gif'.format(img_id)
+            output_file = 'img/training_unet_extended-{}.gif'.format(img_id)
             imageio.mimsave(output_file, images, duration=0.5)
 
 
