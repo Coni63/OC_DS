@@ -55,7 +55,7 @@ class prediction_history(Callback):
 
     def on_train_end(self, logs={}):
         result = {"val_loss": self.val_loss, "loss": self.loss}
-        save_obj(result, "datas/results_unet_extended")
+        save_obj(result, "datas/results_unet_extended_2")
         for img_id in self.img_id:
             images = []
             for i in range(1, self.epoch):
